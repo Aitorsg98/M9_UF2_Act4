@@ -39,15 +39,33 @@ public class Apartat1 {
 			randomDouble = randomDouble * 30 + 1;
 			int randomInt = (int) randomDouble;
 
-			int[] articles = new int[randomInt];
+			/*int[] articles = new int[randomInt];
 			for (int ii = 0; ii < articles.length; ii++) {
 				articles[ii] = randomFill();
 			}
 			
 			Client client = new Client(numClient, articles);
 
-			System.out.println("Creat el client " + numClient + " amb " + articles.length + " articles"+Arrays.toString(articles));
+			System.out.println("Creat el client " + numClient + " amb " + articles.length + " articles"+Arrays.toString(articles));*/
+			
+			int[] articles = new int[randomInt];
+			
+			Client client = new Client(numClient, articles);
 
+			System.out.println("Creat el client " + numClient + " amb " + articles.length + " articles");
+			System.out.println("Client " + numClient +  " passa per caixa...");
+
+			for (int ii = 0; ii < articles.length; ii++) {
+				long inici = System.currentTimeMillis() / 1000;
+				articles[ii] = randomFill();
+				System.out.print("Client " + numClient + " ");
+				System.out.print("article " + (ii+1) + "/" + articles.length + " ");
+				if (ii+1 < articles.length) {
+				System.out.println( "(" + articles[ii] + " segons)...");
+				} else {
+					System.out.println( "(" + articles[ii] + " segons)...FINALITZAT");
+				}
+			}
 			numClient++;
 		}
 	}
