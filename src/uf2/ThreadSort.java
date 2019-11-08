@@ -26,7 +26,17 @@ public class ThreadSort {
 			array2[i] = randomFill();
 		}
 
-		
+		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
+
+		OrdenaArray ordena1 = new OrdenaArray(array1);
+		executor.execute(ordena1);
+		OrdenaArray ordena2 = new OrdenaArray(array2);
+		executor.execute(ordena2);
+		executor.awaitTermination(1, TimeUnit.SECONDS);
+
+		executor.shutdown();
+		array1 = ordena1.getArray();
+		array2 = ordena2.getArray();
 
 		int i = 0;
 		int j = 0;
@@ -60,7 +70,38 @@ public class ThreadSort {
 		 */
 	}
 
-	
+	static class OrdenaArray implements Runnable {
+		int[] array;
+
+		public OrdenaArray(int[] array) {
+			this.array = array;
+		}
+
+		@Override
+		public void run() {
+			int n = array.length;
+			int temp = 0;
+			for (int i = 0; i < n; i++) // Looping through the array length
+			{
+				for (int j = 1; j < (n - i); j++) {
+					if (array[j - 1] > array[j]) {
+
+						// swap elements
+						temp = array[j - 1];
+						array[j - 1] = array[j];
+						array[j] = temp;
+					}
+
+				}
+
+			}
+
+		}
+
+		public int[] getArray() {
+			return array;
+		}
+	}
 
 	/*
 	 * class ExecutaFil implements Runnable {
